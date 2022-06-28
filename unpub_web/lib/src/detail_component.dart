@@ -92,4 +92,8 @@ class DetailComponent implements OnInit, OnActivate {
           .toUrl(parameters: {'name': name, 'version': version});
     }
   }
+
+  void copyToClipboard() {
+    print('copyToClipboard triggered');
+  }
 }

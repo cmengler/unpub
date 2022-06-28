@@ -1,6 +1,22 @@
 <main *ngIf="package != null">
   <div class="detail-header">
-    <h2 class="title">{{ package.name }} {{ package.version }}</h2>
+    <h2 class="title">
+      {{ package.name }} {{ package.version }}
+      <span class="pkg-page-title-copy">
+        <img
+          class="pkg-page-title-copy-icon"
+          src="/static/img/content-copy-icon.svg"
+          alt="icon indicating copy to clipboard operation"
+          width="18"
+          height="18"
+          title='Copy "{{ package.name }}: ^{{ package.version }}" to clipboard'
+          (click)="copyToClipboard()"
+        />
+        <div class="pkg-page-title-copy-feedback">
+          <span class="code">{{ package.name }}: ^{{ package.version }}</span> copied to clipboard
+        </div>
+      </span>
+    </h2>
     <div class="metadata">
       Published <span>{{ $pipe.date(package.createdAt, 'mediumDate') }}</span>
       <div class="tags">
