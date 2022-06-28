@@ -38,7 +38,7 @@ class DetailComponent implements OnInit, OnActivate {
   bool packageNotExists = false;
 
   String get readmeHtml =>
-      package.readme == null ? null : markdownToHtml(package.readme);
+      package.readme == null ? null : markdownToHtml(package.readme, extensionSet: ExtensionSet.gitHubFlavored);
 
   String get changelogHtml =>
       package.changelog == null ? null : markdownToHtml(package.changelog);
