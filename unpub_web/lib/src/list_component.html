@@ -10,7 +10,7 @@
       <p class="metadata">
         v <a [routerLink]="getDetailUrl(package)">{{ package.latest }}</a>
 
-        • Updated: <span>{{ package.updatedAt | date: "mediumDate" }}</span>
+        • Updated: <span>{{ $pipe.date(package.updatedAt, 'mediumDate') }}</span>
         <span class="package-tag" *ngFor="let tag of package.tags"
           >{{ tag }}</span
         >
