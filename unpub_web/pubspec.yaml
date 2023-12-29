@@ -3,15 +3,41 @@ description: A web app that uses AngularDart Components
 version: 1.0.0
 publish_to: none
 environment:
-  sdk: ">=2.3.0 <3.0.0"
+  sdk: ">=3.2.3 <4.0.0"
 dependencies:
-  angular: ^7.0.2
-  angular_forms: ^4.0.1
-  angular_router: ^3.0.1
+  ngdart: ^8.0.0-dev.2
+  ngforms: ^5.0.0-dev.1
+  ngrouter: ^4.0.0-dev.1
   http: ^0.13.3
   markdown: ^5.0.0
   unpub_api:
     path: ../unpub/lib/unpub_api
+dependency_overrides:
+  ngdart: # 8.0.0-dev.3 is not published
+    git:
+      url: https://github.com/angulardart-community/angular
+      path: ngdart
+      ref: 3149fa1bd6cb75beabf84e3e5cfc23f17f74ae24
+  ngforms: # 5.0.0-dev.2 is not published
+    git:
+      url: https://github.com/angulardart-community/angular
+      path: ngforms
+      ref: 3149fa1bd6cb75beabf84e3e5cfc23f17f74ae24
+  ngrouter: # 4.0.0-dev.2 is not published
+    git:
+      url: https://github.com/angulardart-community/angular
+      path: ngrouter
+      ref: 3149fa1bd6cb75beabf84e3e5cfc23f17f74ae24
+  ngast:
+    git:
+      url: https://github.com/angulardart-community/angular
+      path: ngast
+      ref: 3149fa1bd6cb75beabf84e3e5cfc23f17f74ae24
+  ngcompiler:
+    git:
+      url: https://github.com/angulardart-community/angular
+      path: ngcompiler
+      ref: 3149fa1bd6cb75beabf84e3e5cfc23f17f74ae24
 dev_dependencies:
-  build_runner: ^2.1.10
-  build_web_compilers: ^3.2.3
+  build_runner: ^2.4.0
+  build_web_compilers: ^4.0.4

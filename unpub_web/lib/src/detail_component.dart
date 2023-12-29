@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:html';
-import 'package:angular/angular.dart';
-import 'package:angular_router/angular_router.dart';
+import 'package:ngdart/angular.dart';
+import 'package:ngrouter/angular_router.dart';
 import 'package:markdown/markdown.dart';
 import 'package:unpub_web/app_service.dart';
 import 'routes.dart';
@@ -31,17 +31,17 @@ class DetailComponent implements OnInit, OnActivate {
   final AppService appService;
   DetailComponent(this.appService);
 
-  WebapiDetailView package;
-  String packageName;
-  String packageVersion;
+  WebapiDetailView? package;
+  String? packageName;
+  String? packageVersion;
   int activeTab = 0;
   bool packageNotExists = false;
 
   String get readmeHtml =>
-      package.readme == null ? null : markdownToHtml(package.readme, extensionSet: ExtensionSet.gitHubFlavored);
+      package?.readme == null ? '' : markdownToHtml(package!.readme!, extensionSet: ExtensionSet.gitHubFlavored);
 
   String get changelogHtml =>
-      package.changelog == null ? null : markdownToHtml(package.changelog);
+      package?.changelog == null ? '' : markdownToHtml(package!.changelog!);
 
   String get pubDevLink {
     var url = 'https://pub.dev/packages/$packageName';
@@ -69,9 +69,9 @@ class DetailComponent implements OnInit, OnActivate {
         package = await appService.fetchPackage(name, version);
         await Future.delayed(Duration(seconds: 0)); // Next tick
         querySelector('#readme')
-            .setInnerHtml(readmeHtml, validator: _htmlValidator);
+            ?.setInnerHtml(readmeHtml, validator: _htmlValidator);
         querySelector('#changelog')
-            .setInnerHtml(changelogHtml, validator: _htmlValidator);
+            ?.setInnerHtml(changelogHtml, validator: _htmlValidator);
       } on PackageNotExistsException {
         packageNotExists = true;
       } finally {
@@ -84,7 +84,7 @@ class DetailComponent implements OnInit, OnActivate {
     return RoutePaths.list.toUrl(queryParameters: {'q': q});
   }
 
-  getDetailUrl(String name, [String version]) {
+  getDetailUrl(String name, [String? version]) {
     if (version == null) {
       return RoutePaths.detail.toUrl(parameters: {'name': name});
     } else {

@@ -19,6 +19,7 @@ import 'package:unpub/src/package_store.dart';
 import 'utils.dart';
 import 'static/index.html.dart' as index_html;
 import 'static/main.dart.js.dart' as main_dart_js;
+import 'static/pub-dev-logo.svg.dart' as pub_dev_logo_svg;
 
 part 'app.g.dart';
 
@@ -549,6 +550,12 @@ class App {
   Future<shelf.Response> mainDartJs(shelf.Request req) async {
     return shelf.Response.ok(main_dart_js.content,
         headers: {HttpHeaders.contentTypeHeader: 'text/javascript'});
+  }
+
+  @Route.get('/pub-dev-logo.svg')
+  Future<shelf.Response> pubDevLogoSvg(shelf.Request req) async {
+    return shelf.Response.ok(pub_dev_logo_svg.content,
+        headers: {HttpHeaders.contentTypeHeader: 'image/svg+xml'});
   }
 
   String _getBadgeUrl(String label, String message, String color,

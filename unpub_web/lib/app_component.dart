@@ -1,7 +1,7 @@
 import 'dart:html' as html;
-import 'package:angular/angular.dart';
-import 'package:angular_router/angular_router.dart';
-import 'package:angular_forms/angular_forms.dart';
+import 'package:ngdart/angular.dart';
+import 'package:ngrouter/angular_router.dart';
+import 'package:ngforms/angular_forms.dart';
 import 'package:unpub_web/src/routes.dart';
 import 'app_service.dart';
 
@@ -22,9 +22,8 @@ class AppComponent {
     if (appService.keyword == '') {
       return html.window.alert('keyword empty');
     }
-    var result = await _router.navigate(RoutePaths.list.toUrl(),
+    await _router.navigate(RoutePaths.list.toUrl(),
         NavigationParams(queryParameters: {'q': appService.keyword}));
-    // print(result);
   }
 
   String get homeUrl => RoutePaths.home.toUrl();

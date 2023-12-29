@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700"
+      href="https://fonts.googleapis.com/css?family=Google Sans Text:300,400,500,700"
     />
     <!-- styles are taken from https://web.archive.org/web/20191012124525/https://pub.dev/ with images inlined -->
     <style>
@@ -24,7 +24,7 @@
       body,
       input,
       button {
-        font-family: "Roboto", sans-serif;
+        font-family: "Google Sans Text","Google Sans","Roboto",sans-serif;
         -webkit-font-smoothing: antialiased;
       }
       img {
@@ -226,17 +226,6 @@
         -ms-flex-align: center;
         align-items: center;
       }
-      .site-header > .hamburger {
-        display: none;
-        background-color: transparent;
-        width: 24px;
-        height: 40px;
-        background-position: center;
-        margin-left: 10px;
-        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfjBB0KByvlnQBfAAAANklEQVRYw+3TsQkAMAgAQZP9dzZVwAESRLjrbBSLjwDot+qQ+Whp2bp/fzD/AChZyaBkJQNcB6AzBhZq14GdAAAAAElFTkSuQmCC");
-        background-size: 100%;
-        background-repeat: no-repeat;
-      }
       .nav-wrap {
         display: flex;
         justify-content: space-between;
@@ -395,9 +384,6 @@
           background: rgba(0, 0, 0, 0.5);
         }
         .site-header > .mask.-show {
-          display: block;
-        }
-        .site-header > .hamburger {
           display: block;
         }
         .nav-wrap {
@@ -1237,55 +1223,60 @@
         margin-left: 40px;
       }
       .search-bar {
-        border: 1px solid #1e2a38;
-        display: -webkit-box;
-        display: -ms-flexbox;
         display: flex;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
         align-items: center;
         border-radius: 3px;
-        max-width: 650px;
-        background: transparent;
+        max-width: 710px;
+        background: rgba(0, 0, 0, 0);
+        position: relative;
+        margin: 0 auto;
+        padding: 13px 0
       }
-      .search-bar > .input {
+      .home-banner .search-bar {
+        max-width: 880px
+      }
+      .search-bar>.input {
         font-size: 16px;
-        padding: 0.8em 1em;
+        padding: 15px 24px 14px 48px;
         border: none;
+        border-radius: 24px;
         width: 150px;
         -webkit-box-flex: 1;
         -ms-flex-positive: 1;
         flex-grow: 1;
         background: #35404d;
-        color: #fff;
+        color: #fff
       }
-      .search-bar > .input::placeholder {
-        color: #888;
+      .search-bar>.input::placeholder {
+        color: #888
       }
-      .search-bar > .icon {
+      @media(min-width: 641px) {
+        .home-banner .search-bar>.input {
+          font-size: 24px;
+          padding: 20px 35px 20px 65px;
+          border-radius: 35px
+        }
+      }
+      .search-bar>.input:focus {
+        outline: none
+      }
+      .search-bar>.icon {
         width: 45px;
         height: 45px;
-        border-top-right-radius: 3px;
-        border-bottom-right-radius: 3px;
-        background-color: #38bffc;
+        background-color: #0175c2;
         background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABGdBTUEAALGPC/xhBQAAARdJREFUOBHNkz1uwkAQhTGkhCuELlQUiAtwilzHtU8BVLkHF4iokbJJkS41EiTS5nvL2FrQGMsdIz3N7ntvZn+8HgyyiDEuwBv4BifLmi8yW/sQ4xMowRl4Ib4Eo/YuKGYixT9QgSUYW9ZcvKJsbYSo42hFmVeeUbzp8vnHRNAdKCqvSc1JTy78NXeVEXWxiuWVcDORnlz4b6TLFFFfRzF2DUaiT5IrxqPnG0L+mDDzDBn3YuNDxjVDNdrZ7LVh/UGtv7sy2+3z1X7xz91GIhFLoOh6R+vWJtao62VrgW1aKsZP8rSrYf6vHSnYgw1IxyEHoAjgfrN7K6kYBKAI4DGbfbCzZ72j3lEUxRdFKxB6F3sF2okg7R/6f6gee6OuegAAAABJRU5ErkJggg==");
         background-repeat: no-repeat;
         background-position: 50% 50%;
-        -webkit-transform: scale(1.02);
-        transform: scale(1.02);
+        background-color: rgba(0, 0, 0, 0);
+        opacity: .4;
+        position: absolute;
+        left: 10px;
+        transform: scale(0.72)
       }
-      .search-bar-details {
-        position: relative;
-        max-width: 650px;
-      }
-      .search-bar-options {
-        font-size: 14px;
-      }
-      @media (min-width: 600px) {
-        .search-bar-options {
-          position: absolute;
-          top: 16px;
-          right: 0px;
+      @media(min-width: 641px) {
+        .home-banner .search-bar>.icon {
+          left: 20px;
+          transform: scale(1)
         }
       }
       .markdown-body .hash-link {
