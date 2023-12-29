@@ -24,7 +24,6 @@ createServer(String opEmail) async {
   var app = unpub.App(
     metaStore: mongoStore,
     packageStore: unpub.FileStore(baseDir),
-    overrideUploaderEmail: opEmail,
   );
 
   var server = await app.serve('0.0.0.0', 4000);

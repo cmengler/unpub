@@ -5,6 +5,7 @@ import 'meta_store.dart';
 
 final packageCollection = 'packages';
 final statsCollection = 'stats';
+final userCollection = 'users';
 
 class MongoStore extends MetaStore {
   Db db;
@@ -100,5 +101,21 @@ class MongoStore extends MetaStore {
     }
 
     return _queryPackagesBySelector(selector);
+  }
+
+  @override
+  Future<bool> canDownload(String email) async {
+    var result = await db
+        .collection(userCollection)
+        .findOne(where.eq('email', email).and(where.eq('can_download', true)));
+    return result?['can_download'] ?? false;
+  }
+
+  @override
+  Future<bool> canPublish(String email) async {
+    var result = await db
+        .collection(userCollection)
+        .findOne(where.eq('email', email).and(where.eq('can_publish', true)));
+    return result?['can_publish'] ?? false;
   }
 }

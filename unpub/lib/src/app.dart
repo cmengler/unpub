@@ -36,7 +36,6 @@ class App {
 
   /// http(s) proxy to call googleapis (to get uploader email)
   final String? googleapisProxy;
-  final String? overrideUploaderEmail;
 
   /// A forward proxy uri
   final Uri? proxy_origin;
@@ -52,7 +51,6 @@ class App {
     required this.packageStore,
     this.upstream = 'https://pub.dev',
     this.googleapisProxy,
-    this.overrideUploaderEmail,
     this.uploadValidator,
     this.proxy_origin,
   });
@@ -93,9 +91,7 @@ class App {
     return req.requestedUri.resolve(reference).toString();
   }
 
-  Future<String> _getUploaderEmail(shelf.Request req) async {
-    if (overrideUploaderEmail != null) return overrideUploaderEmail!;
-
+  Future<String> _getAuthEmail(shelf.Request req) async {
     var authHeader = req.headers[HttpHeaders.authorizationHeader];
     if (authHeader == null) throw 'missing authorization header';
 
@@ -113,8 +109,22 @@ class App {
 
     var info =
         await Oauth2Api(_googleapisClient!).tokeninfo(accessToken: token);
-    if (info.email == null) throw 'fail to get google account email';
+    if (info.email == null) {
+      throw 'fail to get google account email';
+    }
     return info.email!;
+  }
+
+
+  Future<String> _getUploaderEmail(shelf.Request req) async {
+    final authEmail = await _getAuthEmail(req);
+
+    final canPublish = await metaStore.canPublish(authEmail);
+    if (!canPublish) {
+      throw 'email not authorised';
+    }
+
+    return authEmail;
   }
 
   Future<HttpServer> serve([String host = '0.0.0.0', int port = 4000]) async {
@@ -203,6 +213,12 @@ class App {
   @Route.get('/packages/<name>/versions/<version>.tar.gz')
   Future<shelf.Response> download(
       shelf.Request req, String name, String version) async {
+    final authEmail = await _getAuthEmail(req);
+    final canDownload = await metaStore.canDownload(authEmail);
+    if (!canDownload) {
+      return shelf.Response.forbidden("Unauthorized access");
+    }
+
     var package = await metaStore.queryPackage(name);
     if (package == null) {
       return shelf.Response.found(Uri.parse(upstream)

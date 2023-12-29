@@ -19,4 +19,8 @@ abstract class MetaStore {
     String? uploader,
     String? dependency,
   });
+
+  Future<bool> canPublish(String email);
+
+  Future<bool> canDownload(String email);
 }
