@@ -16,7 +16,7 @@ main(List<String> args) async {
 
   var results = parser.parse(args);
 
-  var host = results['host'] as String?;
+  var host = results['host'] as String;
   var port = int.parse(results['port'] as String);
   var dbUri = results['database'] as String;
   var file_store_path = results['file-store-path'] as String;
